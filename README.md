@@ -6,4 +6,8 @@ This is my to-do list app. I suggest that you visit and save the URL! But if you
 
 Dont forget to subscribe to [Daily Build](https://dailybuild.co), where I build new things daily using the latest AI tools. 
 
-I hope you like it.
+### features
+
+- Editable title
+- Up to 12 to-do items
+- Colors! 
