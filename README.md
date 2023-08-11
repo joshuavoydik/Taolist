@@ -8,6 +8,6 @@ Dont forget to subscribe to [Daily Build](https://dailybuild.co), where I build 
 
 ### features
 
+- Single file 
 - Editable title
-- Up to 12 to-do items
 - Colors! 
