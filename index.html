@@ -37,6 +37,7 @@
       align-items: center;
       padding: 10px;
       border-bottom: 1px solid #333;
+      color: #f2f2f2; /* This line ensures the text color is always light */
     }
 
     .add-todo input {
@@ -254,8 +255,6 @@ function changeTheme(theme) {
       body.color = '#121212';
       footer.style.color = '#121212';
       footerLinks.forEach(link => link.style.color = '#0056b3');
-      todoItems.forEach(item => item.style.color = '#121212');
-      addTodoInput.style.backgroundColor = '#f2f2f2'; // Added this line
       break;
     case 'blue':
       body.backgroundColor = '#007bff';
