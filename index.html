@@ -5,155 +5,184 @@
   <title>My To-Do List</title>
 
   <style>
-    body {
-      font-family: Inter, sans-serif;
-      background-color: #121212;
-      color: #f2f2f2;
-      overflow-x: hidden; 
-    }
+body {
+  font-family: Inter, sans-serif;
+  background-color: #121212;
+  color: #f2f2f2;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
 
-    h1 {
-      text-align: center;
-      cursor: text;
-    }
+h1 {
+  text-align: center;
+  cursor: text;
+}
 
-    .editable-title {
-      border-bottom: 1px #f2f2f2;
-      display: inline;
-    }
+.editable-title {
+  border-bottom: 1px #f2f2f2;
+  display: inline;
+}
 
-    .todo-container {
-      width: 400px;
-      margin: 0 auto;
-      background-color: #1e1e1e;
-      border-radius: 5px;
-      padding: 20px;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
-    }
+.todo-container {
+  max-width: 400px;
+  margin: 20px auto;
+  background-color: #1e1e1e;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
 
-    .todo-item,
-    .add-todo {
-      display: flex;
-      align-items: center;
-      padding: 10px;
-      border-bottom: 1px solid #333;
-      color: #f2f2f2; /* This line ensures the text color is always light */
-    }
+.todo-item,
+.add-todo {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #333;
+  color: #f2f2f2;
+}
 
-    .add-todo input {
-      flex-grow: 1;
-      padding: 5px;
-      margin-right: 10px;
-      border: none;
-      background-color: #333;
-      color: #f2f2f2;
-      outline: none;
-    }
+.add-todo input {
+  flex-grow: 1;
+  padding: 5px;
+  margin-right: 10px;
+  border: none;
+  background-color: #333;
+  color: #f2f2f2;
+  outline: none;
+}
 
-    .add-todo button {
-      padding: 5px 15px;
-      border: none;
-      font-weight: bold;
-      cursor: pointer;
-      border-radius: 5px;
-      transition: background-color 0.3s;
-      margin-left: 5px;
-    }
+.add-todo button {
+  padding: 5px 15px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s;
+  margin-left: 5px;
+}
 
-    .add-todo .add-button {
-      background-color: #007bff;
-      color: #fff;
-    }
+.add-todo .add-button {
+  background-color: #007bff;
+  color: #fff;
+}
 
-    .add-todo .add-button:hover {
-      background-color: #0056b3;
-    }
+.add-todo .add-button:hover {
+  background-color: #0056b3;
+}
 
-    .add-todo .clear-button {
-      background-color: #808080;
-      color: #fff;
-    }
+.add-todo .clear-button {
+  background-color: #808080;
+  color: #fff;
+}
 
-    .add-todo .clear-button:hover {
-      background-color: #606060;
-    }
+.add-todo .clear-button:hover {
+  background-color: #606060;
+}
 
-    input[type="checkbox"] {
-      appearance: none;
-      width: 20px;
-      height: 20px;
-      background-color: #333;
-      border: 1px solid #f2f2f2;
-      border-radius: 3px;
-      cursor: pointer;
-      position: relative;
-      margin-right: 10px;
-    }
+input[type="checkbox"] {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background-color: #333;
+  border: 1px solid #f2f2f2;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+  margin-right: 10px;
+}
 
-    input[type="checkbox"]:checked::before {
-      content: "✓";
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: #f2f2f2;
-    }
+input[type="checkbox"]:checked::before {
+  content: "✓";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #f2f2f2;
+}
 
-    .completed {
-      text-decoration: line-through;
-      color: #aaa;
-    }
+.completed {
+  text-decoration: line-through;
+  color: #aaa;
+}
 
-    .footer {
-      text-align: center;
-      font-size: 12px;
-      position: absolute;
-      bottom: 0;
-      width: 100%;
-      padding: 20px 0;
-    }
+.footer {
+  text-align: center;
+  font-size: 12px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  padding: 20px 0;
+}
 
-    .footer-links {
-      text-align: center;
-      font-size: 12px;
-    }
+.footer-links {
+  text-align: center;
+  font-size: 12px;
+}
 
-    .footer a {
-      color: #e1ff00;
-      text-decoration: underline;
-      transition: color 0.3s;
-    }
+.footer a {
+  color: #e1ff00;
+  text-decoration: underline;
+  transition: color 0.3s;
+}
 
-    .footer a:hover {
-      color: #0056b3;
-    }
+.footer a:hover {
+  color: #0056b3;
+}
 
-    .theme-switcher {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      display: flex;
-      gap: 10px;
-    }
+.theme-switcher {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  gap: 10px;
+}
 
-    .theme-switcher .theme-circle {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      cursor: pointer;
-    }
+.theme-switcher .theme-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
-    .theme-dark { background-color: #121212; }
-    .theme-light { background-color: #f2f2f2; }
-    .theme-blue { background-color: #007bff; }
-    .theme-red { background-color: #ff5733; }
-    .theme-green { background-color: #28a745; }
+.theme-dark { background-color: #121212; }
+.theme-light { background-color: #f2f2f2; }
+.theme-blue { background-color: #007bff; }
+.theme-red { background-color: #ff5733; }
+.theme-green { background-color: #28a745; }
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .todo-container {
+    width: 90%;
+  }
+
+  .todo-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-todo input {
+    font-size: 16px;
+    padding: 10px 0;
+  }
+
+  input[type="checkbox"] {
+    width: 24px;
+    height: 24px;
+  }
+
+  .theme-switcher {
+    bottom: 10px;
+    right: 10px;
+  }
+}
   </style>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/confetti-js/0.0.18/confetti.min.js"></script>
 </head>
 
-<body>
+<body onload="loadTodos()">
 
   <h1><span class="editable-title" contenteditable="true" onkeydown="handleTitleKeyPress(event)" placeholder="My To-Do List">My To-Do List</span></h1>
 
@@ -197,6 +226,12 @@
       }
     }
 
+    function handleContentKeyPress(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+      }
+    }
+
     function handleCheck(e) {
       e.target.parentElement.classList.toggle('completed');
 
@@ -206,8 +241,8 @@
       }
     }
 
-    function addTodo() {
-      const todoText = document.getElementById('newTodo').value;
+    function addTodo(todoText) {
+      todoText = todoText || document.getElementById('newTodo').value;
       if (todoText.trim() === '') return;
 
       const newItem = document.createElement('div');
@@ -218,7 +253,13 @@
       newCheckbox.addEventListener('change', handleCheck);
 
       newItem.appendChild(newCheckbox);
-      newItem.appendChild(document.createTextNode(todoText));
+
+      const newContent = document.createElement('span');
+      newContent.className = 'editable-content';
+      newContent.contentEditable = 'true';
+      newContent.onkeydown = handleContentKeyPress;
+      newContent.innerHTML = todoText;
+      newItem.appendChild(newContent);
 
       const container = document.querySelector('.todo-container');
       container.appendChild(newItem);
@@ -226,6 +267,8 @@
       document.getElementById('newTodo').value = '';
 
       checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+      saveTodos();
     }
 
     function clearTodos() {
@@ -233,6 +276,18 @@
       const items = container.querySelectorAll('.todo-item');
       items.forEach(item => container.removeChild(item));
       checkboxes = [];
+
+      saveTodos();
+    }
+
+    function saveTodos() {
+      const todos = Array.from(document.querySelectorAll('.editable-content')).map(e => e.innerHTML);
+      localStorage.setItem('todos', JSON.stringify(todos));
+    }
+
+    function loadTodos() {
+      const todos = JSON.parse(localStorage.getItem('todos') || '[]');
+      todos.forEach(addTodo);
     }
     
 function changeTheme(theme) {
@@ -240,7 +295,17 @@ function changeTheme(theme) {
   const footer = document.querySelector('.footer');
   const footerLinks = document.querySelectorAll('.footer a');
   const todoItems = document.querySelectorAll('.todo-item');
-  const addTodoInput = document.querySelector('.add-todo input'); // Added this line
+  const addTodoInput = document.querySelector('.add-todo input'); 
+
+const titleElement = document.querySelector('.editable-title');
+titleElement.addEventListener('keydown', function (e) {
+  if (e.key === 'Enter') {
+    e.preventDefault(); // Prevents adding a new line in contenteditable elements
+    // Now you can handle the submission of the title, such as saving it or updating another part of your UI
+    // Example:
+    saveTitle(titleElement.textContent);
+  }
+});
 
   switch (theme) {
     case 'dark':
