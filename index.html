@@ -239,6 +239,7 @@ function changeTheme(theme) {
   const footer = document.querySelector('.footer');
   const footerLinks = document.querySelectorAll('.footer a');
   const todoItems = document.querySelectorAll('.todo-item');
+  const addTodoInput = document.querySelector('.add-todo input'); // Added this line
 
   switch (theme) {
     case 'dark':
@@ -254,6 +255,7 @@ function changeTheme(theme) {
       footer.style.color = '#121212';
       footerLinks.forEach(link => link.style.color = '#0056b3');
       todoItems.forEach(item => item.style.color = '#121212');
+      addTodoInput.style.backgroundColor = '#f2f2f2'; // Added this line
       break;
     case 'blue':
       body.backgroundColor = '#007bff';
