@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>My To-Do List</title>
+
+  <style>
+    body {
+      font-family: Inter, sans-serif;
+      background-color: #121212;
+      color: #f2f2f2;
+      overflow-x: hidden; /* Hide horizontal overflow */
+    }
+
+    h1 {
+      text-align: center;
+      cursor: text;
+    }
+
+    .editable-title {
+      border-bottom: 1px dashed #f2f2f2;
+      display: inline;
+    }
+
+    .todo-container {
+      width: 400px;
+      margin: 0 auto;
+      background-color: #1e1e1e;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+    }
+
+    .todo-item,
+    .add-todo {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #333;
+    }
+
+    .add-todo input {
+      flex-grow: 1;
+      padding: 5px;
+      margin-right: 10px;
+      border: none;
+      background-color: #333;
+      color: #f2f2f2;
+      outline: none;
+    }
+
+    .add-todo button {
+      padding: 5px 15px;
+      border: none;
+      font-weight: bold;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+      margin-left: 5px;
+    }
+
+    .add-todo .add-button {
+      background-color: #007bff;
+      color: #fff;
+    }
+
+    .add-todo .add-button:hover {
+      background-color: #0056b3;
+    }
+
+    .add-todo .clear-button {
+      background-color: #808080;
+      color: #fff;
+    }
+
+    .add-todo .clear-button:hover {
+      background-color: #606060;
+    }
+
+    input[type="checkbox"] {
+      appearance: none;
+      width: 20px;
+      height: 20px;
+      background-color: #333;
+      border: 1px solid #f2f2f2;
+      border-radius: 3px;
+      cursor: pointer;
+      position: relative;
+      margin-right: 10px;
+    }
+
+    input[type="checkbox"]:checked::before {
+      content: "✓";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #f2f2f2;
+    }
+
+    .completed {
+      text-decoration: line-through;
+      color: #aaa;
+    }
+
+    .footer {
+      text-align: center;
+      font-size: 12px;
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      padding: 20px 0;
+    }
+
+    .footer-links {
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: #e1ff00;
+      text-decoration: underline;
+      transition: color 0.3s;
+    }
+
+    .footer a:hover {
+      color: #0056b3;
+    }
+
+    .theme-switcher {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      gap: 10px;
+    }
+
+    .theme-switcher .theme-circle {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      cursor: pointer;
+    }
+
+    .theme-dark { background-color: #121212; }
+    .theme-light { background-color: #f2f2f2; }
+    .theme-blue { background-color: #007bff; }
+    .theme-red { background-color: #ff5733; }
+    .theme-green { background-color: #28a745; }
+  </style>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/confetti-js/0.0.18/confetti.min.js"></script>
+</head>
+
+<body>
+
+  <h1><span class="editable-title" contenteditable="true" onkeydown="handleTitleKeyPress(event)" placeholder="My To-Do List">My To-Do List</span></h1>
+
+  <div class="todo-container">
+    <div class="add-todo">
+      <input type="text" id="newTodo" placeholder="New to-do..." onkeyup="handleKeyPress(event)">
+      <button class="add-button" onclick="addTodo()">Add</button>
+      <button class="clear-button" onclick="clearTodos()">Clear</button>
+    </div>
+  </div>
+
+  <div class="footer">
+        <div class="footer-links">
+    Built by <a href="https://twitter.com/joshuavoydik" target="_blank">Joshua Voydik</a> / Featured on <a href="https://dailybuild.co" target="_blank">Daily Build</a>
+  </div>
+
+    <div class="theme-switcher">
+    <div class="theme-circle theme-dark" onclick="changeTheme('dark')"></div>
+    <div class="theme-circle theme-light" onclick="changeTheme('light')"></div>
+    <div class="theme-circle theme-blue" onclick="changeTheme('blue')"></div>
+    <div class="theme-circle theme-red" onclick="changeTheme('red')"></div>
+    <div class="theme-circle theme-green" onclick="changeTheme('green')"></div>
+  </div>
+  </div>
+
+  <script>
+    const confettiSettings = { target: 'body' };
+    const confetti = new ConfettiGenerator(confettiSettings);
+
+    let checkboxes = document.querySelectorAll('input[type="checkbox"]');
+
+    function handleKeyPress(event) {
+      if (event.key === 'Enter') {
+        addTodo();
+      }
+    }
+
+    function handleTitleKeyPress(event) {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+      }
+    }
+
+    function handleCheck(e) {
+      e.target.parentElement.classList.toggle('completed');
+
+      const completed = document.querySelectorAll('.completed');
+      if (completed.length === checkboxes.length) {
+        confetti.render();
+      }
+    }
+
+    function addTodo() {
+      const todoText = document.getElementById('newTodo').value;
+      if (todoText.trim() === '') return;
+
+      const newItem = document.createElement('div');
+      newItem.className = 'todo-item';
+
+      const newCheckbox = document.createElement('input');
+      newCheckbox.type = 'checkbox';
+      newCheckbox.addEventListener('change', handleCheck);
+
+      newItem.appendChild(newCheckbox);
+      newItem.appendChild(document.createTextNode(todoText));
+
+      const container = document.querySelector('.todo-container');
+      container.appendChild(newItem);
+
+      document.getElementById('newTodo').value = '';
+
+      checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    }
+
+    function clearTodos() {
+      const container = document.querySelector('.todo-container');
+      const items = container.querySelectorAll('.todo-item');
+      items.forEach(item => container.removeChild(item));
+      checkboxes = [];
+    }
+    
+function changeTheme(theme) {
+  const body = document.body.style;
+  const footer = document.querySelector('.footer');
+  const footerLinks = document.querySelectorAll('.footer a');
+  const todoItems = document.querySelectorAll('.todo-item');
+
+  switch (theme) {
+    case 'dark':
+      body.backgroundColor = '#121212';
+      body.color = '#f2f2f2';
+      footer.style.color = '#f2f2f2';
+      footerLinks.forEach(link => link.style.color = '#e1ff00');
+      todoItems.forEach(item => item.style.color = '#f2f2f2');
+      break;
+    case 'light':
+      body.backgroundColor = '#f2f2f2';
+      body.color = '#121212';
+      footer.style.color = '#121212';
+      footerLinks.forEach(link => link.style.color = '#0056b3');
+      todoItems.forEach(item => item.style.color = '#f2f2f2');
+      break;
+    case 'blue':
+      body.backgroundColor = '#007bff';
+      body.color = '#f2f2f2';
+      footer.style.color = '#f2f2f2';
+      footerLinks.forEach(link => link.style.color = '#f2f2f2');
+      todoItems.forEach(item => item.style.color = '#f2f2f2');
+      break;
+    case 'red':
+      body.backgroundColor = '#ff5733';
+      body.color = '#121212';
+      footer.style.color = '#121212';
+      footerLinks.forEach(link => link.style.color = '#121212');
+      todoItems.forEach(item => item.style.color = '#f2f2f2');
+      break;
+    case 'green':
+      body.backgroundColor = '#28a745';
+      body.color = '#f2f2f2';
+      footer.style.color = '#f2f2f2';
+      footerLinks.forEach(link => link.style.color = '#f2f2f2');
+      todoItems.forEach(item => item.style.color = '#f2f2f2');
+      break;
+  }
+}
+  </script>
+
+</body>
+
+</html>
+
+
+
+
+
+
+
