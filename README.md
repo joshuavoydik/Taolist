@@ -1,10 +1,8 @@
-# Taolist
+# taolist
 
-### welcome 
-This is my to-do list app called Taolist.  
-
+this is my to-do list app called taolist 
 
 ### features
-- Single page
-- Editable title
-- Colors! 
+- single page
+- editable title
+- colors 
